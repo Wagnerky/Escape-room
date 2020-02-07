@@ -1,2 +1,1 @@
-# Escape-room
-Python code of escaping a room
+Various python codes I have created.
