@@ -26,16 +26,20 @@ def open_thing(control, room_count,lock):
     function takes in players input, the room count, and the status of the object. checks to see if all criteria are meet
     to open object. If so texted is displayed and the objects status is updated.
     """
-    if control[1] =="cabinet" and room_count == 1 and lock == "unlocked":
-        print("you open the top drawer of the cabinet. In it you see a lighter.")
-        return "open"
-    if control[1] =="chest" and room_count == 1 and lock == "unlocked":
-        print("You open the chest. Inside the numbers 4483 are inscribed to its base.")
-        return "open"
-    if control[1] == "door" and room_count == 0 and lock == "unlocked":
-        return "open"
-    else:
-        print("Either it's locked, or you're on the wrong side of the room.")
+    try:
+        if control[1] =="cabinet" and room_count == 1 and lock == "unlocked":
+            print("you open the top drawer of the cabinet. In it you see a lighter.")
+            return "open"
+        if control[1] =="chest" and room_count == 1 and lock == "unlocked":
+            print("You open the chest. Inside the numbers 4483 are inscribed to its base.")
+            return "open"
+        if control[1] == "door" and room_count == 0 and lock == "unlocked":
+            return "open"
+        else:
+            print("Either it's locked, or you're on the wrong side of the room.")
+            return None
+    except:
+        print ("You might not be specific enough with what you want to do. Try again.")
         return None
     
 def add_to_inventory(control, room_count,furniture,items,inventory):
@@ -44,39 +48,47 @@ def add_to_inventory(control, room_count,furniture,items,inventory):
     inventory, and the game's inventory. Checks to see if the criteria to actually get the item are meet. if meet,
      it pops the item from the game's inventory and appends it to the players inventory.
     """
-    
-    if control[1] =="lighter" and room_count == 1 and furniture == "open":
-        lighter = items.pop(1)
-        inventory.append(lighter)
-        print("* Lighter added to inventory *")
-        return None
-    
-    if control[1] == "key" and room_count == 2 and furniture == "unlocked":
-        key = items.pop()
-        inventory.append(key)
-        print("* key added to inventory *")
-        return None
-    else:
-        print("Try as you might, you can't",*control,".")
+    try:
+        
+        if control[1] =="lighter" and room_count == 1 and furniture == "open":
+            lighter = items.pop(1)
+            inventory.append(lighter)
+            print("* Lighter added to inventory *")
+            return None
+        
+        if control[1] == "key" and room_count == 2 and furniture == "unlocked":
+            key = items.pop()
+            inventory.append(key)
+            print("* key added to inventory *")
+            return None
+        else:
+            print("Try as you might, you can't",*control,".")
+            return None
+    except:
+        print ("You might not be specific enough with what you want to do. Try again.")
         return None
 
 def use(control, room_count, item, inventory):
     
-    if control[1] == "lighter" and control[2] == "on" and (control[3] == "key" or control[3] == "ice") and room_count == 2 and "lighter" in inventory and item == "locked":   
-        print("It took you a while, but eventually the ice around the key melted.")
-        return "unlocked"
-    if control[1] == "key" and control[2] == "on" and control[3] == "chest" and room_count == 1 and "key" in inventory and item == "locked":
-        print("You hear a click from the chest as you finish turning the key.")
-        return "unlocked"
-    if control[1] == "lighter" and control[2] == "on" and (control[3] == "key" or control[3] == "ice") and room_count == 2 and "lighter" in inventory and item == "unlocked":
-        print("The lighter is out of Butane and you already got the key. Why are you wasting time?")
-        return "unlocked"
-    if control[1] == "key" and control[2] == "on" and control[3] == "chest" and room_count == 1 and "key" in inventory and item == "unlocked":
-        print("For some reason you lock the chest again. Thankfully you have the key to unlock it again.")
-        return "locked"
-    else:
-        print ("Try as you might, you can't",*control,".")
-        return "locked"
+    try:
+        if control[1] == "lighter" and control[2] == "on" and (control[3] == "key" or control[3] == "ice") and room_count == 2 and "lighter" in inventory and item == "locked":   
+            print("It took you a while, but eventually the ice around the key melted.")
+            return "unlocked"
+        if control[1] == "key" and control[2] == "on" and control[3] == "chest" and room_count == 1 and "key" in inventory and item == "locked":
+            print("You hear a click from the chest as you finish turning the key.")
+            return "unlocked"
+        if control[1] == "lighter" and control[2] == "on" and (control[3] == "key" or control[3] == "ice") and room_count == 2 and "lighter" in inventory and item == "unlocked":
+            print("The lighter is out of Butane and you already got the key. Why are you wasting time?")
+            return "unlocked"
+        if control[1] == "key" and control[2] == "on" and control[3] == "chest" and room_count == 1 and "key" in inventory and item == "unlocked":
+            print("For some reason you lock the chest again. Thankfully you have the key to unlock it again.")
+            return "locked"
+        else:
+            print ("Try as you might, you can't",*control,".")
+            return "locked"
+    except:
+        print ("You might not be specific enough with what you want to do. Try again.")
+        return None
 
 def enter(control, room_count):
     if control[1] == "4483" and room_count == 3:
